@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                   crossAxisCount: 2,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
-                  childAspectRatio: 1.4,
+                  childAspectRatio: 1.6,
                 ),
                 itemCount: pokemons.length,
                 itemBuilder: (context, index) => PokemonCardWidget(

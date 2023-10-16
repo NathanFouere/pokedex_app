@@ -17,7 +17,7 @@ class PokemonTypeBubbleWidget extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(
           horizontal: 10,
-          vertical: 5,
+          vertical: 2,
         ),
         child: Text(
           type.name,
