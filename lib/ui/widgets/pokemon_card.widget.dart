@@ -52,6 +52,7 @@ class PokemonCardWidget extends StatelessWidget {
                   Flexible(
                     flex: 5,
                     child: ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (_, index) => PokemonTypeBubbleWidget(
                         type: pokemon.apiTypes.elementAt(index),
                       ),
