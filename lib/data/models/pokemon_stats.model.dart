@@ -1,5 +1,5 @@
 class PokemonStats {
-  final int HP;
+  final int hp;
   final int attack;
   final int defense;
   final int specialAttack;
@@ -7,7 +7,7 @@ class PokemonStats {
   final int speed;
 
   const PokemonStats({
-    required this.HP,
+    required this.hp,
     required this.attack,
     required this.defense,
     required this.specialAttack,
@@ -16,7 +16,7 @@ class PokemonStats {
   });
 
   static PokemonStats mock() => const PokemonStats(
-        HP: 10,
+        hp: 10,
         attack: 20,
         defense: 30,
         specialAttack: 40,

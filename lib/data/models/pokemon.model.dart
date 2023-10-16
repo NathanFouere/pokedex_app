@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:pokedex_app/data/models/pokemon_ref.model.dart';
 import 'package:pokedex_app/data/models/pokemon_stats.model.dart';
 import 'package:pokedex_app/data/models/pokemon_type.model.dart';
@@ -25,15 +27,23 @@ class Pokemon {
   final List<PokemonRef> apiEvolutions;
   final PokemonRef? apiPreEvolution;
 
-  static Pokemon mock() => Pokemon(
-        id: 999,
-        pokedexId: 999,
-        name: 'Pokémock',
-        image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
+  static List<Pokemon> mocks() => List.generate(
+        300,
+        (index) => mock(index +1),
+      );
+
+  static Pokemon mock([int index = 1]) => Pokemon(
+        id: index,
+        pokedexId: index,
+        name: 'Pokémon $index',
+        image:
+            'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites'
+            '/pokemon/other/official-artwork/1.png',
         stats: PokemonStats.mock(),
-        apiTypes: <PokemonType>[
-          PokemonType.mock(),
-        ],
+        apiTypes: List.generate(
+          Random().nextInt(2) + 1,
+          (index) => PokemonType.mock(),
+        ),
         apiGeneration: 9,
         apiEvolutions: <PokemonRef>[
           PokemonRef.mock(),
