@@ -5,14 +5,16 @@ class PokemonTypeBubbleWidget extends StatelessWidget {
   const PokemonTypeBubbleWidget({
     super.key,
     required this.type,
+    this.scale = 1,
   });
 
   final PokemonType type;
+  final double scale;
 
   @override
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.3),
+          color: type.lightenColor,
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.symmetric(
@@ -26,6 +28,7 @@ class PokemonTypeBubbleWidget extends StatelessWidget {
           ),
           overflow: TextOverflow.ellipsis,
           maxLines: 1,
+          textScaleFactor: scale,
         ),
       );
 }

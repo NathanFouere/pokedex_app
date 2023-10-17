@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/ui/utils/color.extension.dart';
 
 class PokemonType {
   const PokemonType({
@@ -70,4 +71,6 @@ class PokemonType {
         return Colors.grey;
     }
   }
+
+  Color get lightenColor => color.lighten();
 }

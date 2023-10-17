@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/ui/pages/home.page.dart';
+import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/ui/pages/pokemon_details.page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,6 +19,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const HomePage(),
+        home: PokemonDetailsPage(pokemon: Pokemon.mock()),
       );
 }

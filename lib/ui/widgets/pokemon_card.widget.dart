@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/ui/widgets/pokemon_id.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_type_bubble.widget.dart';
 
 class PokemonCardWidget extends StatelessWidget {
@@ -36,8 +37,8 @@ class PokemonCardWidget extends StatelessWidget {
                   maxLines: 1,
                 ),
                 const Spacer(),
-                Text(
-                  '#${pokemon.pokedexId.toString().padLeft(3, '0')}',
+                PokemonIdWidget(
+                  id: pokemon.pokedexId,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.7),
                   ),

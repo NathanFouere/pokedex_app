@@ -21,7 +21,7 @@ class Pokemon {
   final int pokedexId;
   final String name;
   final String image;
-  final PokemonStats stats;
+  final List<PokemonStat> stats;
   final List<PokemonType> apiTypes;
   final int apiGeneration;
   final List<PokemonRef> apiEvolutions;
@@ -29,7 +29,7 @@ class Pokemon {
 
   static List<Pokemon> mocks() => List.generate(
         300,
-        (index) => mock(index +1),
+        (index) => mock(index + 1),
       );
 
   static Pokemon mock([int index = 1]) => Pokemon(
@@ -39,14 +39,21 @@ class Pokemon {
         image:
             'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites'
             '/pokemon/other/official-artwork/1.png',
-        stats: PokemonStats.mock(),
+        stats: [
+          PokemonStat.mock(PokemonStatType.hp),
+          PokemonStat.mock(PokemonStatType.attack),
+          PokemonStat.mock(PokemonStatType.defense),
+          PokemonStat.mock(PokemonStatType.specialAttack),
+          PokemonStat.mock(PokemonStatType.specialDefense),
+          PokemonStat.mock(PokemonStatType.speed),
+        ],
         apiTypes: List.generate(
           Random().nextInt(2) + 1,
           (index) => PokemonType.mock(),
         ),
         apiGeneration: 9,
         apiEvolutions: <PokemonRef>[
-          PokemonRef.mock(),
+          PokemonRef.mock(index + 1),
         ],
         apiPreEvolution: null,
       );
