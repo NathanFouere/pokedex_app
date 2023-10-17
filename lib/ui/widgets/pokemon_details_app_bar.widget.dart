@@ -35,6 +35,7 @@ class PokemonDetailsAppBarWidget extends StatelessWidget {
               Icons.favorite_border,
             ),
             iconSize: 33,
+            color: Colors.white,
           ),
           const SizedBox(width: 20),
         ],
