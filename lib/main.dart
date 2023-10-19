@@ -18,20 +18,18 @@ class MyApp extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pokedex App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Pokedex App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple,
+          ),
+          useMaterial3: true,
         ),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(
-        title: 'My Pokedex',
-      ),
-    );
-  }
+        home: const MyHomePage(
+          title: 'My Pokedex',
+        ),
+      );
 }
 
 class MyHomePage extends StatefulWidget {
