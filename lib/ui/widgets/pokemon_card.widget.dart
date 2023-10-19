@@ -18,7 +18,7 @@ class PokemonCardWidget extends StatelessWidget {
     onTap: onTap,
     child: Container(
           decoration: BoxDecoration(
-            color: pokemon.apiTypes.first.color,
+            color: pokemon.types.first.color,
             borderRadius: BorderRadius.circular(20),
           ),
           padding: const EdgeInsets.symmetric(
@@ -58,11 +58,11 @@ class PokemonCardWidget extends StatelessWidget {
                       flex: 5,
                       child: ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (_, index) => PokemonTypeBubbleWidget(
-                          type: pokemon.apiTypes.elementAt(index),
+                        itemBuilder: (_, int index) => PokemonTypeBubbleWidget(
+                          type: pokemon.types.elementAt(index),
                         ),
                         separatorBuilder: (_, __) => const SizedBox(height: 8),
-                        itemCount: pokemon.apiTypes.length,
+                        itemCount: pokemon.types.length,
                       ),
                     ),
                     const SizedBox(width: 5),

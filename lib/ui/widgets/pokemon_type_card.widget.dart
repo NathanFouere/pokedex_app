@@ -17,7 +17,10 @@ class PokemonTypeCardWidget extends StatelessWidget {
           Text(
             type.name,
             style: const TextStyle(
-                color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Flexible(
             child: Image.network(type.image),

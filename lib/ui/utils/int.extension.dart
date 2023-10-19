@@ -18,19 +18,19 @@ extension IntExt on int {
     ];
 
     final List<String> romans = [
-      "M",
-      "CM",
-      "D",
-      "CD",
-      "C",
-      "XC",
-      "L",
-      "XL",
-      "X",
-      "IX",
-      "V",
-      "IV",
-      "I",
+      'M',
+      'CM',
+      'D',
+      'CD',
+      'C',
+      'XC',
+      'L',
+      'XL',
+      'X',
+      'IX',
+      'V',
+      'IV',
+      'I',
     ];
 
     String roman = '';
