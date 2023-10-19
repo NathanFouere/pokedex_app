@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
-import 'package:pokedex_app/ui/widgets/home_fab.widget.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_card.widget.dart';
 
@@ -13,7 +12,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Pokemon> pokemons = Pokemon.mocks();
     return Scaffold(
-      floatingActionButton: const HomeFabWidget(),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -43,9 +41,12 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 1.6,
                 ),
                 itemCount: pokemons.length,
-                itemBuilder: (context, index) => PokemonCardWidget(
-                  pokemon: pokemons.elementAt(index),
-                ),
+                itemBuilder: (BuildContext context, int index) {
+                  final Pokemon pokemon = pokemons.elementAt(index);
+                  return PokemonCardWidget(
+                    pokemon: pokemon,
+                  );
+                },
               ),
             ),
           ],

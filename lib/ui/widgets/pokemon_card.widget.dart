@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/ui/widgets/pokemon_id.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_type_bubble.widget.dart';
 
 class PokemonCardWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class PokemonCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
-          color: pokemon.apiTypes.first.color,
+          color: pokemon.types.first.color,
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.symmetric(
@@ -36,8 +37,8 @@ class PokemonCardWidget extends StatelessWidget {
                   maxLines: 1,
                 ),
                 const Spacer(),
-                Text(
-                  '#${pokemon.pokedexId.toString().padLeft(3, '0')}',
+                PokemonIdWidget(
+                  id: pokemon.pokedexId,
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.7),
                   ),
@@ -53,11 +54,11 @@ class PokemonCardWidget extends StatelessWidget {
                     flex: 5,
                     child: ListView.separated(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (_, index) => PokemonTypeBubbleWidget(
-                        type: pokemon.apiTypes.elementAt(index),
+                      itemBuilder: (_, int index) => PokemonTypeBubbleWidget(
+                        type: pokemon.types.elementAt(index),
                       ),
                       separatorBuilder: (_, __) => const SizedBox(height: 8),
-                      itemCount: pokemon.apiTypes.length,
+                      itemCount: pokemon.types.length,
                     ),
                   ),
                   const SizedBox(width: 5),

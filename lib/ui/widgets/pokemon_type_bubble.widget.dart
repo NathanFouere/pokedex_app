@@ -12,7 +12,7 @@ class PokemonTypeBubbleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.3),
+          color: type.lightenColor,
           borderRadius: BorderRadius.circular(20),
         ),
         padding: const EdgeInsets.symmetric(

@@ -11,10 +11,9 @@ class Pokemon {
     required this.name,
     required this.image,
     required this.stats,
-    required this.apiTypes,
-    required this.apiGeneration,
-    required this.apiEvolutions,
-    required this.apiPreEvolution,
+    required this.types,
+    required this.generation,
+    required this.evolutions,
   });
 
   final int id;
@@ -22,32 +21,33 @@ class Pokemon {
   final String name;
   final String image;
   final PokemonStats stats;
-  final List<PokemonType> apiTypes;
-  final int apiGeneration;
-  final List<PokemonRef> apiEvolutions;
-  final PokemonRef? apiPreEvolution;
+  final List<PokemonType> types;
+  final int generation;
+  final List<PokemonRef> evolutions;
 
-  static List<Pokemon> mocks() => List.generate(
+  static List<Pokemon> mocks() => List<Pokemon>.generate(
         300,
-        (index) => mock(index +1),
+        (int index) => mock(id: index + 1),
       );
 
-  static Pokemon mock([int index = 1]) => Pokemon(
-        id: index,
-        pokedexId: index,
-        name: 'Pokémon $index',
+  static Pokemon mock({
+    int id = 1,
+  }) =>
+      Pokemon(
+        id: id,
+        pokedexId: id,
+        name: 'Pokémon $id',
         image:
             'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites'
             '/pokemon/other/official-artwork/1.png',
         stats: PokemonStats.mock(),
-        apiTypes: List.generate(
+        types: List<PokemonType>.generate(
           Random().nextInt(2) + 1,
-          (index) => PokemonType.mock(),
+          (_) => PokemonType.mock(),
         ),
-        apiGeneration: 9,
-        apiEvolutions: <PokemonRef>[
-          PokemonRef.mock(),
+        generation: Random().nextInt(8) + 1,
+        evolutions: <PokemonRef>[
+          PokemonRef.mock(id + 1),
         ],
-        apiPreEvolution: null,
       );
 }

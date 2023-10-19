@@ -7,8 +7,8 @@ class PokemonRef {
   final String name;
   final int pokedexId;
 
-  static PokemonRef mock() => const PokemonRef(
-        name: 'Pokévolution',
-        pokedexId: 1000,
+  static PokemonRef mock([int index = 1]) => PokemonRef(
+        name: 'Pokémon $index',
+        pokedexId: index,
       );
 }
