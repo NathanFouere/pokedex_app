@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_speed_dial: 7.0.0
 
 dev_dependencies:
   flutter_test:
@@ -31,7 +30,7 @@ flutter:
         - asset: assets/fonts/Pokemon-Hollow.ttf
     - family: Pokemon Solid
       fonts:
-       - asset: assets/fonts/Pokemon-Solid.ttf
+        - asset: assets/fonts/Pokemon-Solid.ttf
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Black.ttf
