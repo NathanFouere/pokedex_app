@@ -38,7 +38,7 @@ class PokemonSearchDrawer extends StatelessWidget {
                   // TODO: implement
                 },
                 icon: const Icon(Icons.search),
-              )
+              ),
             ],
           ),
         ),

@@ -28,7 +28,7 @@ class PokemonGenerationCardWidget extends StatelessWidget {
             child: Row(
               children: starterPokemons
                   .map(
-                    (starterPokemon) => Flexible(
+                    (Pokemon starterPokemon) => Flexible(
                       child: Image.network(
                         starterPokemon.image,
                         fit: BoxFit.fitWidth,

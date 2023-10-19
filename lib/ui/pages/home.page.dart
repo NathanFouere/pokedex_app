@@ -20,8 +20,9 @@ class HomePage extends StatelessWidget {
     final List<Pokemon> pokemons = Pokemon.mocks();
     return Scaffold(
       floatingActionButton: HomeFabWidget(
-        onAllTypesClicked: () => _allTypesDialog(context),
-        onAllGenerationsClicked: () => _allGenerationsDialog(context),
+        onAllTypesClicked: () => _allTypesDialog(context, pokemons: pokemons),
+        onAllGenerationsClicked: () =>
+            _allGenerationsDialog(context, pokemons: pokemons),
         onSearchClicked: () => _searchDialog(context),
       ),
       body: SafeArea(
@@ -73,7 +74,14 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _allTypesDialog(BuildContext context) async {
+  void _allTypesDialog(BuildContext context,
+      {required List<Pokemon> pokemons}) async {
+    final Map<String, PokemonType> typesByName = {};
+
+    pokemons.expand((Pokemon pokemon) => pokemon.types).forEach(
+          (PokemonType type) => typesByName.putIfAbsent(type.name, () => type),
+        );
+
     final PokemonType? type = await showModalBottomSheet<PokemonType>(
       isScrollControlled: true,
       constraints: BoxConstraints(
@@ -83,7 +91,8 @@ class HomePage extends StatelessWidget {
       builder: (_) => DraggableScrollableSheet(
         initialChildSize: 1,
         expand: false,
-        builder: (_, scrollController) => PokemonTypesDrawer(
+        builder: (_, ScrollController scrollController) => PokemonTypesDrawer(
+          types: typesByName.values.toList(),
           scrollController: scrollController,
         ),
       ),
@@ -96,7 +105,8 @@ class HomePage extends StatelessWidget {
       ..showSnackBar(
         SnackBar(
           content: Text(
-            'Vous avez choisi les Pokémons de type ${type.name}...',
+            'Vous avez choisi les Pokémons de '
+            'type ${type.name}...',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -106,7 +116,8 @@ class HomePage extends StatelessWidget {
       );
   }
 
-  void _allGenerationsDialog(BuildContext context) async {
+  void _allGenerationsDialog(BuildContext context,
+      {required List<Pokemon> pokemons}) async {
     final int? generation = await showModalBottomSheet<int>(
       isScrollControlled: true,
       constraints: BoxConstraints(
@@ -116,7 +127,9 @@ class HomePage extends StatelessWidget {
       builder: (_) => DraggableScrollableSheet(
         initialChildSize: 1,
         expand: false,
-        builder: (_, scrollController) => PokemonGenerationsDrawer(
+        builder: (_, ScrollController scrollController) =>
+            PokemonGenerationsDrawer(
+          pokemons: pokemons,
           scrollController: scrollController,
         ),
       ),
@@ -129,7 +142,8 @@ class HomePage extends StatelessWidget {
       ..showSnackBar(
         SnackBar(
           content: Text(
-            'Vous avez choisi les Pokémons de genération ${generation.toRoman()}...',
+            'Vous avez choisi les Pokémons de '
+            'genération ${generation.toRoman()}...',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -152,7 +166,8 @@ class HomePage extends StatelessWidget {
       ..showSnackBar(
         SnackBar(
           content: Text(
-            'Vous avez choisi tapé la recherche suivante : $search...',
+            'Vous avez choisi tapé la recherche '
+            'suivante : $search...',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
