@@ -29,13 +29,16 @@ class Pokemon {
 
   static List<Pokemon> mocks() => List.generate(
         300,
-        (index) => mock(index + 1),
+        (index) => mock(id: index + 1),
       );
 
-  static Pokemon mock([int index = 1]) => Pokemon(
-        id: index,
-        pokedexId: index,
-        name: 'Pokémon $index',
+  static Pokemon mock({
+    int id = 1,
+  }) =>
+      Pokemon(
+        id: id,
+        pokedexId: id,
+        name: 'Pokémon $id',
         image:
             'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites'
             '/pokemon/other/official-artwork/1.png',
@@ -51,9 +54,9 @@ class Pokemon {
           Random().nextInt(2) + 1,
           (index) => PokemonType.mock(),
         ),
-        apiGeneration: 9,
+        apiGeneration: Random().nextInt(8) + 1,
         apiEvolutions: <PokemonRef>[
-          PokemonRef.mock(index + 1),
+          PokemonRef.mock(id + 1),
         ],
         apiPreEvolution: null,
       );

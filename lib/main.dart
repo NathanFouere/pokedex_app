@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/data/models/pokemon.model.dart';
-import 'package:pokedex_app/ui/pages/pokemon_details.page.dart';
+import 'package:pokedex_app/ui/pages/home.page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,10 +14,12 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'Roboto',
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
+            seedColor: Colors.blue,
           ),
+          dialogBackgroundColor: Colors.white,
           useMaterial3: true,
         ),
-        home: PokemonDetailsPage(pokemon: Pokemon.mock()),
+        home: const HomePage(),
+        //home: PokemonDetailsPage(pokemon: Pokemon.mock()),
       );
 }

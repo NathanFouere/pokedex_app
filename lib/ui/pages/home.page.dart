@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/ui/modals/pokemon_generations.drawer.dart';
+import 'package:pokedex_app/ui/modals/pokemon_search.drawer.dart';
+import 'package:pokedex_app/ui/modals/pokemon_types.drawer.dart';
 import 'package:pokedex_app/ui/widgets/home_fab.widget.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_card.widget.dart';
@@ -13,7 +16,11 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Pokemon> pokemons = Pokemon.mocks();
     return Scaffold(
-      floatingActionButton: const HomeFabWidget(),
+      floatingActionButton: HomeFabWidget(
+        onAllTypesClicked: () => _allTypesDialog(context),
+        onAllGenerationsClicked: () => _allGenerationsDialog(context),
+        onSearchClicked: () => _searchDialog(context),
+      ),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -51,6 +58,47 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _allTypesDialog(BuildContext context) async {
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.65,
+      ),
+      context: context,
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 1,
+        expand: false,
+        builder: (_, scrollController) => PokemonTypesDrawer(
+          scrollController: scrollController,
+        ),
+      ),
+    );
+  }
+
+  void _allGenerationsDialog(BuildContext context) async {
+    await showModalBottomSheet(
+      isScrollControlled: true,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.65,
+      ),
+      context: context,
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 1,
+        expand: false,
+        builder: (_, scrollController) => PokemonGenerationsDrawer(
+          scrollController: scrollController,
+        ),
+      ),
+    );
+  }
+
+  void _searchDialog(BuildContext context) async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (_) => const PokemonSearchDrawer(),
     );
   }
 }
