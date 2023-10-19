@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
-import 'package:pokedex_app/ui/utils/string.extension.dart';
+import 'package:pokedex_app/ui/utils/int.extension.dart';
 import 'package:pokedex_app/ui/widgets/custom_card.widget.dart';
 
 class PokemonGenerationCardWidget extends StatelessWidget {
