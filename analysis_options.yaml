@@ -9,6 +9,14 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    - '**.g.dart'
+    - '**app_localizations*.dart'
+    - '**/generated/**'
+  errors:
+    invalid_annotation_target: ignore
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`
@@ -22,22 +30,80 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
+    avoid_print: true
+
+    # Make constructors the first thing in every class
+    sort_constructors_first: true
+
+    prefer_single_quotes: true
+    prefer_double_quotes: false
+
+    # Blindly follow the Flutter code style, which prefers types everywhere
+    always_specify_types: true
+
+    # Back to the 80s
+    lines_longer_than_80_chars: true
+
+    # Specify only values different from default values
+    avoid_redundant_argument_values: true
+
+    # ALWAYS use package imports for files in lib/.
+    always_use_package_imports: true
+
+    # CONSIDER omitting type annotations for local variables.
+    omit_local_variable_types: false
+
+    # CONSIDER using => for short members whose body is a single return statement.
+    prefer_expression_function_bodies: true
+
+    # DO use trailing commas for all function calls and declarations unless the function call or
+    # definition, from the start of the function name up to the closing parenthesis,
+    # fits in a single line.
+    require_trailing_commas: true
+
+    always_declare_return_types: true
+
+    avoid_bool_literals_in_conditional_expressions: true
+
+    annotate_overrides: true
+
+    avoid_final_parameters: true
+
+    avoid_null_checks_in_equality_operators: true
+
+    avoid_return_types_on_setters: true
+
+    avoid_returning_null: true
+
+    avoid_unnecessary_containers: true
+
+    avoid_unused_constructor_parameters: true
+
+    await_only_futures: true
+
+    cascade_invocations: true
+
+    curly_braces_in_flow_control_structures: true
+
+    directives_ordering: true
+
+    empty_constructor_bodies: true
+
+    empty_catches: true
+
+    file_names: true
+
     use_build_context_synchronously: false
 
-    # Style rules
-    camel_case_types: true
-    library_names: true
-    avoid_catches_without_on_clauses: true
-    avoid_catching_errors: true
-    avoid_empty_else: true
-    unnecessary_brace_in_string_interps: true
-    avoid_redundant_argument_values: true
-    leading_newlines_in_multiline_strings: true
-    # formatting
-    lines_longer_than_80_chars: true
-    curly_braces_in_flow_control_structures: true
-    # doc comments
-    slash_for_doc_comments: true
+    join_return_with_assignment: true
+
+    null_closures: true
+
+    prefer_adjacent_string_concatenation: true
+
+    prefer_conditional_assignment: true
+
+    prefer_const_constructors: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

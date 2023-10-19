@@ -42,14 +42,13 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 1.6,
                 ),
                 itemCount: pokemons.length,
-                itemBuilder: (context, index) {
-                  final pokemon = pokemons.elementAt(index);
+                itemBuilder: (BuildContext context, int index) {
+                  final Pokemon pokemon = pokemons.elementAt(index);
                   return PokemonCardWidget(
                     pokemon: pokemon,
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) =>
-                            PokemonDetailsPage(pokemon: pokemon),
+                        builder: (_) => PokemonDetailsPage(pokemon: pokemon),
                       ),
                     ),
                   );
