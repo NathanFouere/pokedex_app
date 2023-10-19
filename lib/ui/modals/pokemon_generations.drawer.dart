@@ -6,19 +6,19 @@ import 'package:pokedex_app/ui/widgets/pokemon_generation_card.widget.dart';
 class PokemonGenerationsDrawer extends StatelessWidget {
   const PokemonGenerationsDrawer({
     super.key,
+    required this.pokemons,
     this.scrollController,
   });
 
+  final List<Pokemon> pokemons;
   final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {
-    final List<Pokemon> pokemons = Pokemon.mocks();
-
     final Map<int, List<Pokemon>> generations = pokemons
-        .sorted((a, b) => a.apiGeneration.compareTo(b.apiGeneration))
+        .sorted((Pokemon a, Pokemon b) => a.generation.compareTo(b.generation))
         .groupListsBy(
-          (element) => element.apiGeneration,
+          (Pokemon pokemon) => pokemon.generation,
         );
 
     return Column(
@@ -44,7 +44,7 @@ class PokemonGenerationsDrawer extends StatelessWidget {
               childAspectRatio: 1.6,
             ),
             itemCount: generations.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (BuildContext context, int index) {
               final MapEntry<int, List<Pokemon>> generation =
                   generations.entries.elementAt(index);
               return InkWell(

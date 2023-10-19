@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/data/models/pokemon_stats.model.dart';
 import 'package:pokedex_app/ui/widgets/progress_bar.widget.dart';
 
 class PokemonStatWidget extends StatelessWidget {
   const PokemonStatWidget({
     super.key,
     required this.color,
-    required this.stat,
+    required this.label,
+    required this.value,
   });
 
   final Color color;
-  final PokemonStat stat;
+  final String label;
+  final int value;
 
   @override
   Widget build(BuildContext context) => Row(
         children: [
           Expanded(
             child: Text(
-              stat.type.label,
+              label,
             ),
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
-              stat.value.toString().padLeft(3, '0'),
+              value.toString().padLeft(3, '0'),
             ),
           ),
           const SizedBox(width: 10),
@@ -31,7 +32,7 @@ class PokemonStatWidget extends StatelessWidget {
             flex: 4,
             child: ProgressBarWidget(
               max: 100,
-              current: stat.value.toDouble(),
+              current: value.toDouble(),
               color: color,
             ),
           ),

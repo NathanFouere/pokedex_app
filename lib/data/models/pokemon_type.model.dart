@@ -1,13 +1,20 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:pokedex_app/ui/utils/color.extension.dart';
 
+part 'pokemon_type.model.g.dart';
+
+@JsonSerializable(createToJson: false)
 class PokemonType {
   const PokemonType({
     required this.name,
     required this.image,
   });
+
+  factory PokemonType.fromJson(Map<String, dynamic> json) =>
+      _$PokemonTypeFromJson(json);
 
   final String name;
   final String image;
@@ -73,4 +80,11 @@ class PokemonType {
   }
 
   Color get lightenColor => color.lighten();
+
+  @override
+  bool operator ==(Object other) {
+    if (other is! PokemonType) return false;
+
+    return other.name == name;
+  }
 }

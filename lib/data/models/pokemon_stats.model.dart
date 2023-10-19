@@ -1,29 +1,45 @@
 import 'dart:math';
 
-enum PokemonStatType {
-  hp('PV'),
-  attack('Attaque'),
-  defense('Défense'),
-  specialAttack('Atq. spé.'),
-  specialDefense('Déf. spé.'),
-  speed('Vitesse');
+import 'package:json_annotation/json_annotation.dart';
 
-  const PokemonStatType(this.label);
+part 'pokemon_stats.model.g.dart';
 
-  final String label;
-}
+@JsonSerializable(createToJson: false)
+class PokemonStats {
+  factory PokemonStats.fromJson(Map<String, dynamic> json) =>
+      _$PokemonStatsFromJson(json);
 
-class PokemonStat {
-  final PokemonStatType type;
-  final int value;
-
-  const PokemonStat({
-    required this.type,
-    required this.value,
+  const PokemonStats({
+    required this.hp,
+    required this.attack,
+    required this.defense,
+    required this.specialAttack,
+    required this.specialDefense,
+    required this.speed,
   });
 
-  static PokemonStat mock(PokemonStatType type) => PokemonStat(
-        type: type,
-        value: Random().nextInt(100),
+  @JsonKey(name: 'HP')
+  final int hp;
+
+  final int attack;
+
+  final int defense;
+
+  @JsonKey(name: 'special_attack')
+  final int specialAttack;
+  @JsonKey(name: 'special_defense')
+  final int specialDefense;
+
+  final int speed;
+
+  static PokemonStats mock() => PokemonStats(
+        hp: _randomInt(),
+        attack: _randomInt(),
+        defense: _randomInt(),
+        specialAttack: _randomInt(),
+        specialDefense: _randomInt(),
+        speed: _randomInt(),
       );
+
+  static int _randomInt() => Random().nextInt(100) + 1;
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/data/models/pokemon_type.model.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_details_app_bar.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_evolution.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_id.widget.dart';
-import 'package:pokedex_app/ui/widgets/pokemon_stat.widget.dart';
+import 'package:pokedex_app/ui/widgets/pokemon_stats.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_type_bubble.widget.dart';
 
 class PokemonDetailsPage extends StatelessWidget {
@@ -56,9 +57,9 @@ class PokemonDetailsPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     Row(
-                      children: pokemon.apiTypes
+                      children: pokemon.types
                           .map(
-                            (type) => Padding(
+                            (PokemonType type) => Padding(
                               padding: const EdgeInsets.only(right: 10),
                               child: PokemonTypeBubbleWidget(
                                 type: type,
@@ -78,17 +79,9 @@ class PokemonDetailsPage extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) => PokemonStatWidget(
-                        color: pokemon.apiTypes.first.color,
-                        stat: pokemon.stats.elementAt(index),
-                      ),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 10),
-                      itemCount: pokemon.stats.length,
+                    PokemonStatsWidget(
+                      color: pokemon.types.first.color,
+                      stats: pokemon.stats,
                     ),
                     const SizedBox(height: 40),
                     const Text(
@@ -104,13 +97,12 @@ class PokemonDetailsPage extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       shrinkWrap: true,
-                      itemBuilder: (context, index) => PokemonEvolutionWidget(
-                        evolution: pokemon.apiEvolutions.elementAt(index),
+                      itemBuilder: (_, int index) => PokemonEvolutionWidget(
+                        evolution: pokemon.evolutions.elementAt(index),
                       ),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 10),
-                      itemCount: pokemon.apiEvolutions.length,
-                    )
+                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                      itemCount: pokemon.evolutions.length,
+                    ),
                   ],
                 ),
               ),
