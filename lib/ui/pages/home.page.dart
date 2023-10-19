@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
-import 'package:pokedex_app/data/models/pokemon_type.model.dart';
-import 'package:pokedex_app/ui/modals/pokemon_generations.drawer.dart';
-import 'package:pokedex_app/ui/modals/pokemon_search.drawer.dart';
-import 'package:pokedex_app/ui/modals/pokemon_types.drawer.dart';
 import 'package:pokedex_app/ui/pages/pokemon_details.page.dart';
-import 'package:pokedex_app/ui/utils/int.extension.dart';
-import 'package:pokedex_app/ui/widgets/home_fab.widget.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_card.widget.dart';
 
@@ -19,11 +13,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Pokemon> pokemons = Pokemon.mocks();
     return Scaffold(
-      floatingActionButton: HomeFabWidget(
-        onAllTypesClicked: () => print('Types clicked'),
-        onAllGenerationsClicked: () => print('Generations clicked'),
-        onSearchClicked: () => print('Search clicked'),
-      ),
       body: SafeArea(
         bottom: false,
         child: Column(
