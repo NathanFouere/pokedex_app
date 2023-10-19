@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/data/models/pokemon_type.model.dart';
 import 'package:pokedex_app/ui/modals/pokemon_generations.drawer.dart';
 import 'package:pokedex_app/ui/modals/pokemon_search.drawer.dart';
 import 'package:pokedex_app/ui/modals/pokemon_types.drawer.dart';
+import 'package:pokedex_app/ui/utils/string.extension.dart';
 import 'package:pokedex_app/ui/widgets/home_fab.widget.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_card.widget.dart';
@@ -62,7 +64,7 @@ class HomePage extends StatelessWidget {
   }
 
   void _allTypesDialog(BuildContext context) async {
-    await showModalBottomSheet(
+    final PokemonType? type = await showModalBottomSheet<PokemonType>(
       isScrollControlled: true,
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.65,
@@ -76,10 +78,26 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+
+    if (type == null) return;
+
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            'Vous avez choisi les Pokémons de type ${type.name}...',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: Colors.lightGreen,
+        ),
+      );
   }
 
   void _allGenerationsDialog(BuildContext context) async {
-    await showModalBottomSheet(
+    final int? generation = await showModalBottomSheet<int>(
       isScrollControlled: true,
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.65,
@@ -93,12 +111,44 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+
+    if (generation == null) return;
+
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            'Vous avez choisi les Pokémons de genération ${generation.toRoman()}...',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: Colors.lightGreen,
+        ),
+      );
   }
 
   void _searchDialog(BuildContext context) async {
-    await showModalBottomSheet(
+    final String? search = await showModalBottomSheet<String>(
       context: context,
       builder: (_) => const PokemonSearchDrawer(),
     );
+
+    if (search == null) return;
+
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            'Vous avez choisi tapé la recherche suivante : $search...',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: Colors.lightGreen,
+        ),
+      );
   }
 }

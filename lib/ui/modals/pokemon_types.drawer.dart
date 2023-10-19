@@ -42,7 +42,7 @@ class PokemonTypesDrawer extends StatelessWidget {
             itemBuilder: (context, index) {
               final PokemonType type = types.elementAt(index);
               return InkWell(
-                onTap: () => print('Type choisi = ${type.name}'),
+                onTap: () => Navigator.of(context).pop(type),
                 child: PokemonTypeCardWidget(
                   type: type,
                 ),

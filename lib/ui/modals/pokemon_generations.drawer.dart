@@ -48,7 +48,7 @@ class PokemonGenerationsDrawer extends StatelessWidget {
               final MapEntry<int, List<Pokemon>> generation =
                   generations.entries.elementAt(index);
               return InkWell(
-                onTap: () => print('Génération choisie = ${generation.key}'),
+                onTap: () => Navigator.of(context).pop(generation.key),
                 child: PokemonGenerationCardWidget(
                   generation: generation.key,
                   starterPokemons: generation.value.take(3).toList(),
