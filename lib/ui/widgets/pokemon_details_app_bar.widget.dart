@@ -40,7 +40,7 @@ class PokemonDetailsAppBarWidget extends StatelessWidget {
           const SizedBox(width: 20),
         ],
         expandedHeight: 250,
-        backgroundColor: pokemon.apiTypes.first.lightenColor,
+        backgroundColor: pokemon.types.first.lightenColor,
         flexibleSpace: FlexibleSpaceBar(
           background: Padding(
             padding: const EdgeInsets.all(50),

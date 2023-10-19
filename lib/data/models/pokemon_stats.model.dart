@@ -1,29 +1,30 @@
 import 'dart:math';
 
-enum PokemonStatType {
-  hp('PV'),
-  attack('Attaque'),
-  defense('Défense'),
-  specialAttack('Atq. spé.'),
-  specialDefense('Déf. spé.'),
-  speed('Vitesse');
-
-  const PokemonStatType(this.label);
-
-  final String label;
-}
-
-class PokemonStat {
-  final PokemonStatType type;
-  final int value;
-
-  const PokemonStat({
-    required this.type,
-    required this.value,
+class PokemonStats {
+  const PokemonStats({
+    required this.hp,
+    required this.attack,
+    required this.defense,
+    required this.specialAttack,
+    required this.specialDefense,
+    required this.speed,
   });
 
-  static PokemonStat mock(PokemonStatType type) => PokemonStat(
-        type: type,
-        value: Random().nextInt(100),
+  final int hp;
+  final int attack;
+  final int defense;
+  final int specialAttack;
+  final int specialDefense;
+  final int speed;
+
+  static PokemonStats mock() => PokemonStats(
+        hp: _randomInt(),
+        attack: _randomInt(),
+        defense: _randomInt(),
+        specialAttack: _randomInt(),
+        specialDefense: _randomInt(),
+        speed: _randomInt(),
       );
+
+  static int _randomInt() => Random().nextInt(100) + 1;
 }

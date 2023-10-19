@@ -41,9 +41,12 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 1.6,
                 ),
                 itemCount: pokemons.length,
-                itemBuilder: (context, index) => PokemonCardWidget(
-                  pokemon: pokemons.elementAt(index),
-                ),
+                itemBuilder: (BuildContext context, int index) {
+                  final Pokemon pokemon = pokemons.elementAt(index);
+                  return PokemonCardWidget(
+                    pokemon: pokemon,
+                  );
+                },
               ),
             ),
           ],
