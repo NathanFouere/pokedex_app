@@ -9,6 +9,7 @@ import 'package:pokedex_app/ui/modals/pokemon_generations.drawer.dart';
 import 'package:pokedex_app/ui/modals/pokemon_search.drawer.dart';
 import 'package:pokedex_app/ui/modals/pokemon_types.drawer.dart';
 import 'package:pokedex_app/ui/pages/pokemon_details.page.dart';
+import 'package:pokedex_app/ui/utils/color.extension.dart';
 import 'package:pokedex_app/ui/utils/int.extension.dart';
 import 'package:pokedex_app/ui/widgets/home_fab.widget.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
@@ -80,13 +81,14 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: GridView.builder(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 20,
-                        ) +
+                              vertical: 10,
+                              horizontal: 20,
+                            ) +
                             EdgeInsets.only(
                               bottom: MediaQuery.paddingOf(context).bottom,
                             ),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
@@ -95,22 +97,28 @@ class _HomePageState extends State<HomePage> {
                         itemCount: pokemons.length,
                         itemBuilder: (BuildContext context, int index) {
                           final Pokemon pokemon = pokemons.elementAt(index);
-                          return Shimmer.fromColors(
-                            enabled: state is LoadingState,
-                            baseColor: Colors.grey,
-                            highlightColor: Colors.blueGrey,
-                            child: PokemonCardWidget(
-                              pokemon: pokemon,
-                              onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (_) => BlocProvider<PokemonsCubit>.value(
-                                    value: _pokemonsCubit,
-                                    child: PokemonDetailsPage(pokemon: pokemon),
+                          return state is LoadingState
+                              ? Shimmer.fromColors(
+                                  enabled: state is LoadingState,
+                                  baseColor: Colors.grey.lighten(0.2),
+                                  highlightColor: Colors.grey.lighten(0.5),
+                                  child: PokemonCardWidget(
+                                    pokemon: pokemon,
                                   ),
-                                ),
-                              ),
-                            ),
-                          );
+                                )
+                              : PokemonCardWidget(
+                                  pokemon: pokemon,
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          BlocProvider<PokemonsCubit>.value(
+                                        value: _pokemonsCubit,
+                                        child: PokemonDetailsPage(
+                                            pokemon: pokemon),
+                                      ),
+                                    ),
+                                  ),
+                                );
                         },
                       ),
                     ),
