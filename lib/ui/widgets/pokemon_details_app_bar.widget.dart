@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/ui/cubits/cubit.state.dart';
+import 'package:pokedex_app/ui/cubits/pokemons.cubit.dart';
+import 'package:pokedex_app/ui/cubits/pokemons.state.dart';
 
 class PokemonDetailsAppBarWidget extends StatelessWidget {
   const PokemonDetailsAppBarWidget({
@@ -25,15 +29,23 @@ class PokemonDetailsAppBarWidget extends StatelessWidget {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              // TODO: implement
+          BlocBuilder<PokemonsCubit, CubitState<PokemonsStateData>>(
+            builder: (context, state) {
+              bool liked = false;
+              if (state is SuccessState<PokemonsStateData>) {
+                liked = state.data.likedPokemons.contains(pokemon);
+              }
+
+              return IconButton(
+                onPressed: () => BlocProvider.of<PokemonsCubit>(context).like(
+                    pokemon),
+                icon: Icon(
+                  liked ? Icons.favorite_outlined : Icons.favorite_border,
+                ),
+                iconSize: 33,
+                color: Colors.white,
+              );
             },
-            icon: const Icon(
-              Icons.favorite_border,
-            ),
-            iconSize: 33,
-            color: Colors.white,
           ),
           const SizedBox(width: 20),
         ],

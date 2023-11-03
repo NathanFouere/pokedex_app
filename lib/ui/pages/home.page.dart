@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/data/api/pokemon.service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
 import 'package:pokedex_app/data/models/pokemon_type.model.dart';
+import 'package:pokedex_app/ui/cubits/cubit.state.dart';
+import 'package:pokedex_app/ui/cubits/pokemons.cubit.dart';
+import 'package:pokedex_app/ui/cubits/pokemons.state.dart';
 import 'package:pokedex_app/ui/modals/pokemon_generations.drawer.dart';
 import 'package:pokedex_app/ui/modals/pokemon_search.drawer.dart';
 import 'package:pokedex_app/ui/modals/pokemon_types.drawer.dart';
@@ -21,9 +24,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _loading = false;
-  bool _error = false;
-  List<Pokemon> _pokemons = [];
+  final PokemonsCubit _pokemonsCubit = PokemonsCubit();
 
   @override
   void initState() {
@@ -31,108 +32,103 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  void _loadData() {
-    setState(() {
-      _loading = true;
-      _pokemons = Pokemon.mocks();
-    });
-
-    PokemonService.getAll()
-        .then(
-          (List<Pokemon> pokemons) => setState(
-            () {
-              _loading = false;
-              _error = false;
-              _pokemons = pokemons;
-            },
-          ),
-        )
-        .onError(
-          (_, __) => setState(
-            () {
-              _loading = false;
-              _error = true;
-            },
-          ),
-        );
-  }
+  void _loadData() => _pokemonsCubit.getAll();
 
   @override
-  Widget build(BuildContext context) {
-    Widget content;
+  Widget build(BuildContext context) => BlocProvider<PokemonsCubit>(
+        create: (_) => _pokemonsCubit,
+        child: BlocBuilder<PokemonsCubit, PokemonsState>(
+          builder: (BuildContext context, PokemonsState state) {
+            Widget content;
+            List<Pokemon> pokemons = <Pokemon>[];
 
-    if (_error) {
-      content = const Center(
-        child: Text('Une erreur est survenue !'),
-      );
-    } else if (_loading) {
-      content = const Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      content = GridView.builder(
-        padding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 20,
-            ) +
-            EdgeInsets.only(
-              bottom: MediaQuery.paddingOf(context).bottom,
-            ),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-          childAspectRatio: 1.6,
+            if (state is FailureState) {
+              content = const Center(
+                child: Text('Une erreur est survenue !'),
+              );
+            } else if (state is LoadingState) {
+              pokemons = Pokemon.mocks();
+              content = const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is SuccessState<PokemonsStateData>) {
+              pokemons = state.data.pokemons;
+              content = GridView.builder(
+                padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 20,
+                    ) +
+                    EdgeInsets.only(
+                      bottom: MediaQuery.paddingOf(context).bottom,
+                    ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 1.4,
+                ),
+                itemCount: pokemons.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final Pokemon pokemon = pokemons.elementAt(index);
+                  return PokemonCardWidget(
+                    pokemon: pokemon,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => BlocProvider<PokemonsCubit>.value(
+                          value: _pokemonsCubit,
+                          child: PokemonDetailsPage(pokemon: pokemon),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              content = const SizedBox();
+            }
+
+            return Scaffold(
+              floatingActionButton: state is LoadingState ||
+                      state is FailureState
+                  ? null
+                  : HomeFabWidget(
+                      onAllTypesClicked: () =>
+                          _allTypesDialog(context, pokemons: pokemons),
+                      onAllGenerationsClicked: () =>
+                          _allGenerationsDialog(context, pokemons: pokemons),
+                      onSearchClicked: () => _searchDialog(context),
+                    ),
+              body: SafeArea(
+                bottom: false,
+                child: Column(
+                  children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: HomeHeaderWidget(),
+                      ),
+                    ),
+                    Expanded(
+                      child: content,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
-        itemCount: _pokemons.length,
-        itemBuilder: (BuildContext context, int index) {
-          final Pokemon pokemon = _pokemons.elementAt(index);
-          return PokemonCardWidget(
-            pokemon: pokemon,
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) => PokemonDetailsPage(pokemon: pokemon),
-              ),
-            ),
-          );
-        },
       );
-    }
 
-    return Scaffold(
-      floatingActionButton: _loading || _error
-          ? null
-          : HomeFabWidget(
-              onAllTypesClicked: () => _allTypesDialog(context),
-              onAllGenerationsClicked: () => _allGenerationsDialog(context),
-              onSearchClicked: () => _searchDialog(context),
-            ),
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 20,
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: HomeHeaderWidget(),
-              ),
-            ),
-            Expanded(
-              child: content,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  void _allTypesDialog(
+    BuildContext context, {
+    required List<Pokemon> pokemons,
+  }) async {
+    final Map<String, PokemonType> typesByName = <String, PokemonType>{};
 
-  void _allTypesDialog(BuildContext context) async {
-    final Map<String, PokemonType> typesByName = {};
-
-    _pokemons.expand((Pokemon pokemon) => pokemon.types).forEach(
+    pokemons.expand((Pokemon pokemon) => pokemon.types).forEach(
           (PokemonType type) => typesByName.putIfAbsent(type.name, () => type),
         );
 
@@ -170,7 +166,10 @@ class _HomePageState extends State<HomePage> {
       );
   }
 
-  void _allGenerationsDialog(BuildContext context) async {
+  void _allGenerationsDialog(
+    BuildContext context, {
+    required List<Pokemon> pokemons,
+  }) async {
     final int? generation = await showModalBottomSheet<int>(
       isScrollControlled: true,
       constraints: BoxConstraints(
@@ -182,7 +181,7 @@ class _HomePageState extends State<HomePage> {
         expand: false,
         builder: (_, ScrollController scrollController) =>
             PokemonGenerationsDrawer(
-          pokemons: _pokemons,
+          pokemons: pokemons,
           scrollController: scrollController,
         ),
       ),
