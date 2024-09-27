@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                           crossAxisCount: 2,
                           mainAxisSpacing: 10,
                           crossAxisSpacing: 10,
-                          childAspectRatio: 1.4,
+                          childAspectRatio: 1.5,
                         ),
                         itemCount: pokemons.length,
                         itemBuilder: (BuildContext context, int index) {
