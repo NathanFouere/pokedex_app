@@ -57,7 +57,7 @@ class PokemonCardWidget extends StatelessWidget {
                       itemBuilder: (_, int index) => PokemonTypeBubbleWidget(
                         type: pokemon.types.elementAt(index),
                       ),
-                      separatorBuilder: (_, __) => const SizedBox(height: 8),
+                      separatorBuilder: (_, __) => const SizedBox(height: 5),
                       itemCount: pokemon.types.length,
                     ),
                   ),
