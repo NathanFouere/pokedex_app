@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/ui/pages/home.page.dart';
 
 void main() {
   /** You can do some initialisations, such as:
@@ -26,8 +27,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const MyHomePage(
-          title: 'My Pokedex',
+        home: const HomePage(
         ),
       );
 }
