@@ -16,6 +16,7 @@ class PokemonDetailsAppBarWidget extends StatelessWidget {
         leading: ElevatedButton(
           onPressed: () {
             // TODO: implement
+            Navigator.pop(context);
           },
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),

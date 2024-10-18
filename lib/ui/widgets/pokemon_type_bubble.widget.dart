@@ -12,7 +12,18 @@ class PokemonTypeBubbleWidget extends StatelessWidget {
   final double scale;
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(type.name),
+            duration: const Duration(seconds: 1),
+            backgroundColor: type.color,
+          ),
+        );
+      },
+      child: Container(
         decoration: BoxDecoration(
           color: type.lightenColor,
           borderRadius: BorderRadius.circular(20),
@@ -30,5 +41,6 @@ class PokemonTypeBubbleWidget extends StatelessWidget {
           maxLines: 1,
           textScaleFactor: scale,
         ),
-      );
+      ),
+  );
 }

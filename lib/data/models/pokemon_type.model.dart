@@ -29,6 +29,11 @@ class PokemonType {
     );
   }
 
+  static List<PokemonType> mocks() => List<PokemonType>.generate(
+    10,
+      (_) => mock(),
+  );
+
   Color get color {
     switch (name) {
       case 'Normal':

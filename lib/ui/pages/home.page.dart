@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_card.widget.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:pokedex_app/ui/widgets/pokemon_types.dialog.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -64,7 +65,10 @@ class HomePage extends StatelessWidget {
            SpeedDialChild(
             child: const Icon(Icons.catching_pokemon_outlined),
             label: 'Tous les types',
-            onTap: () => print('tous les types'),
+            onTap: () => showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context)=> const PokemonTypesDialog(),
+            ),
           ),
            SpeedDialChild(
             child: const Icon(Icons.catching_pokemon_outlined),
