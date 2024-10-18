@@ -3,7 +3,7 @@ import 'package:pokedex_app/data/models/pokemon.model.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_id.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_type_bubble.widget.dart';
 
-class PokemonCardWidget extends StatelessWidget {
+class PokemonCardWidget extends StatefulWidget {
   const PokemonCardWidget({
     super.key,
     required this.pokemon,
@@ -14,14 +14,7 @@ class PokemonCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
     onTap: () {
-      // recupère contexte parent pour afficher le snackbar -> snackbar a un espace reservé sur chaque scaffold
-     ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-           content: Text(pokemon.name),
-           duration: const Duration(seconds: 1),
-           backgroundColor: pokemon.types.first.color,
-         )
-     );
+      print("Container clicked");
     },
     child: Container(
       decoration: BoxDecoration(
@@ -97,4 +90,10 @@ class PokemonCardWidget extends StatelessWidget {
       ),
     ),
   );
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
 }

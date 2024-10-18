@@ -62,12 +62,12 @@ class HomePage extends StatelessWidget {
             onTap: () => print('Fav'),
           ),
            SpeedDialChild(
-            child: const Icon(Icons.brush),
+            child: const Icon(Icons.catching_pokemon_outlined),
             label: 'Tous les types',
             onTap: () => print('tous les types'),
           ),
            SpeedDialChild(
-            child: const Icon(Icons.keyboard_voice),
+            child: const Icon(Icons.catching_pokemon_outlined),
             label: 'Toutes les générations',
             onTap: () => print('toutes les gene'),
           ),
