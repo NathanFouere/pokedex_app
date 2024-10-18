@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_card.widget.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -52,6 +53,31 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: SpeedDial(
+        icon: Icons.add,
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.heart_broken_outlined),
+            label: 'Favoris',
+            onTap: () => print('Fav'),
+          ),
+           SpeedDialChild(
+            child: const Icon(Icons.brush),
+            label: 'Tous les types',
+            onTap: () => print('tous les types'),
+          ),
+           SpeedDialChild(
+            child: const Icon(Icons.keyboard_voice),
+            label: 'Toutes les générations',
+            onTap: () => print('toutes les gene'),
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.search),
+            label: 'Rechercher',
+            onTap: () => print('je recherche'),
+          ),
+        ],
+      )
     );
   }
 }
