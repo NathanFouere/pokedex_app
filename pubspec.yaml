@@ -18,6 +18,14 @@ dev_dependencies:
 
   flutter_lints: 5.0.0
 
+  json_serializable: ^6.8.0
+
+  json_annotation: ^4.9.0
+
+  build_runner: ^2.4.13
+
+  http: ^1.2.2
+
 dependency_overrides:
   collection: 1.19.0
 

@@ -2,12 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/ui/utils/color.extension.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'pokemon_type.model.g.dart';
+
+@JsonSerializable(createToJson: false)
 class PokemonType {
   const PokemonType({
     required this.name,
     required this.image,
   });
+
+  factory PokemonType.fromJson(Map<String, dynamic> json) => _$PokemonTypeFromJson(json);
 
   final String name;
   final String image;

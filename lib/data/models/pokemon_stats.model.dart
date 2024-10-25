@@ -1,5 +1,9 @@
 import 'dart:math';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'pokemon_stats.model.g.dart';
+
+@JsonSerializable(createToJson: false)
 class PokemonStats {
   const PokemonStats({
     required this.hp,
@@ -10,10 +14,13 @@ class PokemonStats {
     required this.speed,
   });
 
+  @JsonKey(name: 'HP')
   final int hp;
   final int attack;
   final int defense;
+  @JsonKey(name: 'special_attack')
   final int specialAttack;
+  @JsonKey(name: 'special_defense')
   final int specialDefense;
   final int speed;
 
@@ -25,6 +32,8 @@ class PokemonStats {
         specialDefense: _randomInt(),
         speed: _randomInt(),
       );
+
+  factory PokemonStats.fromJson(Map<String, dynamic> json) => _$PokemonStatsFromJson(json);
 
   static int _randomInt() => Random().nextInt(100) + 1;
 }

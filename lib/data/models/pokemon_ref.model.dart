@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'pokemon_ref.model.g.dart';
+
+@JsonSerializable(createToJson: false)
 class PokemonRef {
   const PokemonRef({
     required this.name,
@@ -11,4 +16,6 @@ class PokemonRef {
         name: 'Pokémon $index',
         pokedexId: index,
       );
+
+  factory PokemonRef.fromJson(Map<String, dynamic> json) => _$PokemonRefFromJson(json);
 }
