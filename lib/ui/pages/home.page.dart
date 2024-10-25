@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/data/models/pokemon.model.dart';
+import 'package:pokedex_app/data/models/pokemon_type.model.dart';
 import 'package:pokedex_app/ui/data/api/pokemon.service.dart';
 import 'package:pokedex_app/ui/pages/pokemon_details.page.dart';
 import 'package:pokedex_app/ui/widgets/home_header.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_card.widget.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+
+import '../widgets/pokemon_types.dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -17,6 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   List<Pokemon> pokemons = [];
+  PokemonType? type = null;
 
   @override
   void initState() {
@@ -37,7 +42,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  Future<void> getPokemonsByType(PokemonType type) async {
+    setState(() {
+      isLoading = true;
+    });
 
+    List<Pokemon> listOfPokemons = await PokemonService().getAllByType(type);
+
+    setState(() {
+      pokemons = listOfPokemons;
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +109,39 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+      floatingActionButton: SpeedDial(
+        icon: Icons.add,
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.heart_broken_outlined),
+            label: 'Favoris',
+            onTap: () => print('Fav'),
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.catching_pokemon_outlined),
+            label: 'Tous les types',
+            onTap: () => showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context)=> PokemonTypesDialog(onCall: (PokemonType val) {
+                setState(() {
+                  type = val;
+                });
+                getPokemonsByType(val);
+              },),
+            ),
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.catching_pokemon_outlined),
+            label: 'Toutes les générations',
+            onTap: () => print('toutes les gene'),
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.search),
+            label: 'Rechercher',
+            onTap: () => print('je recherche'),
+          ),
+        ],
+      )
     );
   }
 }

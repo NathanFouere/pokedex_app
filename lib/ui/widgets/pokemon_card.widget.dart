@@ -3,6 +3,8 @@ import 'package:pokedex_app/data/models/pokemon.model.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_id.widget.dart';
 import 'package:pokedex_app/ui/widgets/pokemon_type_bubble.widget.dart';
 
+import '../../data/models/pokemon_type.model.dart';
+
 class PokemonCardWidget extends StatelessWidget {
   const PokemonCardWidget({
     super.key,
@@ -59,7 +61,7 @@ class PokemonCardWidget extends StatelessWidget {
                       child: ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (_, int index) => PokemonTypeBubbleWidget(
-                          type: pokemon.types.elementAt(index),
+                          type: pokemon.types.elementAt(index), onTap: (PokemonType val) {  },
                         ),
                         separatorBuilder: (_, __) => const SizedBox(height: 5),
                         itemCount: pokemon.types.length,

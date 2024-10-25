@@ -63,7 +63,7 @@ class PokemonDetailsPage extends StatelessWidget {
                               padding: const EdgeInsets.only(right: 10),
                               child: PokemonTypeBubbleWidget(
                                 type: type,
-                                scale: 1.3,
+                                scale: 1.3, onTap: (PokemonType val) {  },
                               ),
                             ),
                           )
